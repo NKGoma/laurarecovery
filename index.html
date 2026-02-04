@@ -3,21 +3,257 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A fun quiz to help you decide what to watch tonight. Get personalized recommendations for Netflix Germany and ARD Mediathek.">
+    <meta name="description" content="A fun quiz to help you decide what to watch tonight.">
     <meta name="theme-color" content="#1a1a2e">
-
     <title>What Should I Watch? 🍿</title>
-
-    <!-- Favicon (popcorn emoji as data URI for simplicity) -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍿</text></svg>">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #16213e;
+            --bg-card: #1f2937;
+            --accent-primary: #e94560;
+            --accent-secondary: #ffd369;
+            --accent-tertiary: #a855f7;
+            --text-primary: #f8f8f8;
+            --text-secondary: #b8b8b8;
+            --text-muted: #6b7280;
+            --space-xs: 0.5rem;
+            --space-sm: 0.75rem;
+            --space-md: 1rem;
+            --space-lg: 1.5rem;
+            --space-xl: 2rem;
+            --space-xxl: 3rem;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 50px;
+            --transition-fast: 0.15s ease;
+            --transition-medium: 0.3s ease;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(233, 69, 96, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .container { width: 100%; max-width: 600px; margin: 0 auto; padding: var(--space-md); }
+        .screen { display: none; animation: fadeIn var(--transition-medium); }
+        .screen.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .start-screen {
+            text-align: center;
+            padding: var(--space-xxl) var(--space-md);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .logo { font-size: 4rem; margin-bottom: var(--space-sm); }
+        .title {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+        .feature-tag {
+            background: var(--bg-card);
+            padding: var(--space-xs) var(--space-md);
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .btn {
+            display: inline-block;
+            padding: var(--space-md) var(--space-xl);
+            border: none;
+            border-radius: var(--radius-full);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(233, 69, 96, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+        }
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--bg-card);
+        }
+        .btn-secondary:hover { border-color: var(--accent-primary); }
+        .quiz-screen { padding: var(--space-lg) var(--space-md); min-height: 100vh; }
+        .progress-container { margin-bottom: var(--space-xl); }
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: var(--space-xs);
+        }
+        .progress-bar {
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+            border-radius: var(--radius-full);
+            transition: width var(--transition-medium);
+        }
+        .question-container { text-align: center; margin-bottom: var(--space-xl); }
+        .question-emoji {
+            font-size: 3rem;
+            margin-bottom: var(--space-md);
+            animation: bounce 2s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .question-text { font-size: clamp(1.25rem, 3vw, 1.5rem); font-weight: 600; }
+        .answers-container { display: flex; flex-direction: column; gap: var(--space-sm); }
+        .answer-btn {
+            width: 100%;
+            padding: var(--space-md) var(--space-lg);
+            background: var(--bg-card);
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+        .answer-btn:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(5px);
+        }
+        .answer-btn.selected {
+            border-color: var(--accent-primary);
+            background: rgba(233, 69, 96, 0.1);
+        }
+        .results-screen { padding: var(--space-xl) var(--space-md); min-height: 100vh; }
+        .results-header { text-align: center; margin-bottom: var(--space-xl); }
+        .results-emoji { font-size: 4rem; margin-bottom: var(--space-md); }
+        .results-title { font-size: clamp(1.25rem, 3vw, 1.5rem); margin-bottom: var(--space-xs); }
+        .results-subtitle { color: var(--text-secondary); font-size: 1rem; }
+        .recommendations { display: flex; flex-direction: column; gap: var(--space-lg); margin-bottom: var(--space-xl); }
+        .recommendation-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            border-left: 4px solid var(--accent-primary);
+            animation: slideIn var(--transition-medium);
+        }
+        .recommendation-card:nth-child(2) { border-left-color: var(--accent-tertiary); }
+        .recommendation-card:nth-child(3) { border-left-color: var(--accent-secondary); }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .rec-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: var(--space-sm);
+            flex-wrap: wrap;
+            gap: var(--space-xs);
+        }
+        .rec-title { font-size: clamp(1.1rem, 3vw, 1.3rem); font-weight: 700; }
+        .rec-badge {
+            padding: var(--space-xs) var(--space-sm);
+            background: rgba(233, 69, 96, 0.2);
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+        }
+        .rec-meta {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-md);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .rec-description { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; }
+        .match-reason {
+            margin-top: var(--space-md);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--accent-secondary);
+            font-style: italic;
+        }
+        .results-actions { display: flex; flex-direction: column; gap: var(--space-sm); text-align: center; }
+        .results-actions .btn { width: 100%; }
+        .fun-footer {
+            text-align: center;
+            margin-top: var(--space-xl);
+            padding: var(--space-md);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        @media (min-width: 640px) {
+            .results-actions { flex-direction: row; justify-content: center; }
+            .results-actions .btn { width: auto; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-
-        <!-- ==================== START SCREEN ==================== -->
+        <!-- START SCREEN -->
         <div id="start-screen" class="screen start-screen active">
             <div class="logo">🍿</div>
             <h1 class="title">What Should I Watch?</h1>
@@ -25,27 +261,18 @@
                 It's 9:47pm. You've been scrolling for 20 minutes.
                 Let's fix that with 6 quick questions.
             </p>
-
             <div class="features">
                 <span class="feature-tag">📺 Netflix DE</span>
                 <span class="feature-tag">📺 ARD Mediathek</span>
                 <span class="feature-tag">⚡ 30 seconds</span>
                 <span class="feature-tag">🎯 No signup</span>
             </div>
-
-            <button id="start-btn" class="btn btn-primary">
-                Find My Watch →
-            </button>
-
-            <p class="fun-footer">
-                No algorithm overlords, just vibes.
-            </p>
+            <button id="start-btn" class="btn btn-primary">Find My Watch →</button>
+            <p class="fun-footer">No algorithm overlords, just vibes.</p>
         </div>
 
-        <!-- ==================== QUIZ SCREEN ==================== -->
+        <!-- QUIZ SCREEN -->
         <div id="quiz-screen" class="screen quiz-screen">
-
-            <!-- Progress indicator -->
             <div class="progress-container">
                 <div class="progress-text">
                     <span>Question <span id="progress-current">1</span> of <span id="progress-total">6</span></span>
@@ -55,50 +282,221 @@
                     <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
                 </div>
             </div>
-
-            <!-- Question area -->
             <div class="question-container">
                 <div id="question-emoji" class="question-emoji">⚡</div>
                 <h2 id="question-text" class="question-text">Loading question...</h2>
             </div>
-
-            <!-- Answer buttons (populated by JS) -->
-            <div id="answers-container" class="answers-container">
-                <!-- Answers will be inserted here -->
-            </div>
+            <div id="answers-container" class="answers-container"></div>
         </div>
 
-        <!-- ==================== RESULTS SCREEN ==================== -->
+        <!-- RESULTS SCREEN -->
         <div id="results-screen" class="screen results-screen">
-
             <div class="results-header">
                 <div class="results-emoji">🎬</div>
                 <h2 class="results-title">Your Watch List is Ready!</h2>
                 <p class="results-subtitle">Based on your answers, here's what you should watch tonight</p>
             </div>
-
-            <!-- Recommendation cards (populated by JS) -->
-            <div id="recommendations-container" class="recommendations">
-                <!-- Recommendation cards will be inserted here -->
-            </div>
-
+            <div id="recommendations-container" class="recommendations"></div>
             <div class="results-actions">
-                <button id="restart-btn" class="btn btn-secondary">
-                    🔄 Try Again
-                </button>
+                <button id="restart-btn" class="btn btn-secondary">🔄 Try Again</button>
             </div>
-
             <p class="fun-footer">
                 Still can't decide? Close your eyes and tap randomly. We won't judge.
                 <br><br>
                 Made with ☕ and indecision
             </p>
         </div>
-
     </div>
 
-    <!-- Scripts (data first, then app logic) -->
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+    <script>
+        // === DATA ===
+        const CONTENT = [
+            { title: "Dark", type: "Series", platform: "Netflix Germany", description: "Time travel, family secrets, and enough plot twists to make your brain do yoga. Perfect for when you want to feel smart and confused simultaneously.", tags: ["intense", "thriller", "scifi", "long", "engaging", "wild"] },
+            { title: "How to Sell Drugs Online (Fast)", type: "Series", platform: "Netflix Germany", description: "A nerdy German teen accidentally becomes a drug kingpin. It's Breaking Bad if Walter White had a TikTok account.", tags: ["funny", "comedy", "drama", "medium", "engaging"] },
+            { title: "Barbarians", type: "Series", platform: "Netflix Germany", description: "Romans vs. Germanic tribes with lots of mud, battle cries, and questionable life choices. History class never looked this intense.", tags: ["intense", "drama", "long", "engaging", "wild"] },
+            { title: "The Queen's Gambit", type: "Limited Series", platform: "Netflix Germany", description: "Chess has never been this sexy or dramatic. You'll want to learn how to play and look brooding in turtlenecks.", tags: ["emotional", "drama", "medium", "engaging"] },
+            { title: "Squid Game", type: "Series", platform: "Netflix Germany", description: "Childhood games but make it deadly. You'll never look at Red Light, Green Light the same way again.", tags: ["intense", "thriller", "drama", "medium", "wild"] },
+            { title: "Bridgerton", type: "Series", platform: "Netflix Germany", description: "Regency-era romance with modern vibes and classical covers of pop songs. Your grandma and your best friend can both enjoy this.", tags: ["chill", "romance", "drama", "long", "engaging"] },
+            { title: "Wednesday", type: "Series", platform: "Netflix Germany", description: "The Addams Family's daughter goes to murder school and solves mysteries with maximum deadpan energy. Iconic.", tags: ["funny", "comedy", "thriller", "medium", "engaging"] },
+            { title: "Lupin", type: "Series", platform: "Netflix Germany", description: "A gentleman thief in modern Paris being extremely cool and French. You'll want to wear a flat cap afterwards.", tags: ["intense", "thriller", "crime", "medium", "engaging"] },
+            { title: "Emily in Paris", type: "Series", platform: "Netflix Germany", description: "An American in Paris having main character energy and questionable French. Perfect for when you want pretty visuals and zero stress.", tags: ["chill", "comedy", "romance", "long", "mindless", "lowkey"] },
+            { title: "Our Planet", type: "Documentary", platform: "Netflix Germany", description: "David Attenborough whispering about nature will either relax you or make you cry about polar bears. Possibly both.", tags: ["chill", "documentary", "emotional", "medium", "lowkey"] },
+            { title: "Glass Onion: A Knives Out Mystery", type: "Movie", platform: "Netflix Germany", description: "A murder mystery on a billionaire's private island with Daniel Craig being delightfully Southern. Chef's kiss.", tags: ["funny", "thriller", "comedy", "short", "engaging"] },
+            { title: "Don't Look Up", type: "Movie", platform: "Netflix Germany", description: "Scientists try to warn people about a comet and nobody listens. It's satire that hits a little too close to home.", tags: ["funny", "comedy", "drama", "short", "engaging"] },
+            { title: "The Adam Project", type: "Movie", platform: "Netflix Germany", description: "Ryan Reynolds time travels to team up with his younger self. It's fun, it's heartwarming, it's Ryan Reynolds being Ryan Reynolds.", tags: ["chill", "scifi", "comedy", "short", "engaging"] },
+            { title: "All Quiet on the Western Front", type: "Movie", platform: "Netflix Germany", description: "A devastating anti-war film that will make you appreciate your couch more than ever. Beautifully made, emotionally brutal.", tags: ["intense", "emotional", "drama", "short", "engaging"] },
+            { title: "Heartstopper", type: "Series", platform: "Netflix Germany", description: "A sweet British teen romance that will make your heart so warm you might need to check if it's still beating.", tags: ["chill", "emotional", "romance", "short", "lowkey"] },
+            { title: "Black Mirror", type: "Series", platform: "Netflix Germany", description: "Technology-themed horror stories that will make you side-eye your smartphone. Each episode is its own nightmare.", tags: ["intense", "thriller", "scifi", "medium", "wild", "engaging"] },
+            { title: "Beef", type: "Series", platform: "Netflix Germany", description: "A road rage incident spirals into absolute mayhem. It's dark comedy gold that keeps escalating beautifully.", tags: ["intense", "funny", "comedy", "drama", "short", "wild", "engaging"] },
+            { title: "Tatort", type: "Series", platform: "ARD Mediathek", description: "Germany's favorite Sunday crime ritual. Pick a city, pick a detective, enjoy the murder mystery with your Abendbrot.", tags: ["chill", "crime", "drama", "short", "lowkey"] },
+            { title: "Babylon Berlin", type: "Series", platform: "ARD Mediathek", description: "1920s Berlin with jazz, crime, and stunning aesthetics. It's history class but with sequins and intrigue.", tags: ["intense", "crime", "drama", "long", "engaging"] },
+            { title: "Charité", type: "Series", platform: "ARD Mediathek", description: "Medical drama through German history at Berlin's famous hospital. Educational and dramatic - your teachers would be proud.", tags: ["emotional", "drama", "documentary", "medium", "engaging"] },
+            { title: "Deutschland 83", type: "Series", platform: "ARD Mediathek", description: "A young East German spy infiltrates the West during the Cold War. Retro vibes, spy thrills, and a killer 80s soundtrack.", tags: ["intense", "thriller", "drama", "medium", "engaging"] },
+            { title: "Terra X", type: "Documentary", platform: "ARD Mediathek", description: "German documentaries about history, science, and nature. Like YouTube rabbit holes but actually educational.", tags: ["chill", "documentary", "short", "lowkey", "mindless"] },
+            { title: "Mord mit Aussicht", type: "Series", platform: "ARD Mediathek", description: "Crime comedy in a tiny German village where everyone knows everyone. Cozy murders, if that's a genre.", tags: ["chill", "funny", "comedy", "crime", "medium", "lowkey"] },
+            { title: "Die Carolin Kebekus Show", type: "Show", platform: "ARD Mediathek", description: "Germany's sharpest comedy queen roasting everything and everyone. Perfect for when you want to laugh at the state of the world.", tags: ["funny", "comedy", "short", "lowkey", "mindless"] },
+            { title: "Wer weiß denn sowas?", type: "Show", platform: "ARD Mediathek", description: "Trivia show with delightfully useless knowledge. Great for feeling either very smart or very dumb.", tags: ["chill", "funny", "comedy", "short", "lowkey", "mindless"] },
+            { title: "Eldorado KaDeWe", type: "Series", platform: "ARD Mediathek", description: "1920s Berlin department store drama. Fashion, forbidden love, and the birth of modern shopping. Retail therapy as art.", tags: ["emotional", "drama", "romance", "medium", "engaging"] },
+            { title: "Die Toten vom Bodensee", type: "Series", platform: "ARD Mediathek", description: "Murder mysteries at beautiful Lake Constance. The scenery is stunning, the corpses are plentiful. A classic combo.", tags: ["chill", "crime", "thriller", "medium", "engaging"] }
+        ];
+
+        const QUESTIONS = [
+            { id: "energy", question: "What's your energy level right now?", emoji: "⚡", answers: [
+                { text: "Horizontal and proud of it", tags: ["chill", "lowkey", "mindless"] },
+                { text: "Functioning... barely", tags: ["chill", "engaging"] },
+                { text: "Could focus on something good", tags: ["engaging"] },
+                { text: "Wired and ready to be entertained", tags: ["intense", "wild", "engaging"] }
+            ]},
+            { id: "attention", question: "How's your attention span tonight?", emoji: "🧠", answers: [
+                { text: "A goldfish could outfocus me", tags: ["short", "mindless", "lowkey"] },
+                { text: "I can commit for about 2 hours", tags: ["short", "medium"] },
+                { text: "Ready for a proper series", tags: ["medium", "long"] },
+                { text: "I want to get INVESTED", tags: ["long", "engaging"] }
+            ]},
+            { id: "feelings", question: "Do you want to feel feelings?", emoji: "💭", answers: [
+                { text: "Make me ugly cry", tags: ["emotional", "drama"] },
+                { text: "Give me ALL the warm fuzzies", tags: ["emotional", "romance", "chill"] },
+                { text: "Light feelings only please", tags: ["funny", "comedy", "chill"] },
+                { text: "Feelings are cancelled tonight", tags: ["mindless", "comedy", "funny"] }
+            ]},
+            { id: "chaos", question: "How much chaos can you handle?", emoji: "🌀", answers: [
+                { text: "Plot twist me into oblivion", tags: ["wild", "thriller", "intense"] },
+                { text: "Some spice is nice", tags: ["engaging", "thriller", "drama"] },
+                { text: "Mildly interesting things happening", tags: ["drama", "engaging"] },
+                { text: "Predictable comfort please", tags: ["chill", "lowkey", "romance"] }
+            ]},
+            { id: "reality", question: "Real world or escape?", emoji: "🌍", answers: [
+                { text: "Show me the real stuff", tags: ["documentary", "drama"] },
+                { text: "Reality but make it dramatic", tags: ["drama", "crime", "engaging"] },
+                { text: "A little bit of both", tags: ["drama", "comedy"] },
+                { text: "Full fantasy escape mode", tags: ["scifi", "romance", "wild"] }
+            ]},
+            { id: "vibe", question: "Pick a vibe:", emoji: "✨", answers: [
+                { text: "Cozy blanket energy", tags: ["chill", "lowkey", "romance"] },
+                { text: "Edge of my seat", tags: ["thriller", "intense", "wild"] },
+                { text: "Laughing out loud", tags: ["comedy", "funny"] },
+                { text: "Learn something new", tags: ["documentary", "drama", "engaging"] }
+            ]}
+        ];
+
+        // === STATE ===
+        const state = { currentQuestion: 0, userTags: [], answers: [] };
+
+        // === APP ===
+        document.addEventListener('DOMContentLoaded', function() {
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', startQuiz);
+
+            document.getElementById('progress-total').textContent = QUESTIONS.length;
+        });
+
+        function showScreen(name) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(name + '-screen').classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startQuiz() {
+            state.currentQuestion = 0;
+            state.userTags = [];
+            state.answers = [];
+            showScreen('quiz');
+            showQuestion(0);
+        }
+
+        function showQuestion(index) {
+            const q = QUESTIONS[index];
+            document.getElementById('progress-current').textContent = index + 1;
+            document.getElementById('progress-fill').style.width = ((index) / QUESTIONS.length * 100) + '%';
+            document.getElementById('question-emoji').textContent = q.emoji;
+            document.getElementById('question-text').textContent = q.question;
+
+            const container = document.getElementById('answers-container');
+            container.innerHTML = '';
+
+            q.answers.forEach((answer, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = answer.text;
+                btn.addEventListener('click', () => selectAnswer(i));
+                container.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(answerIndex) {
+            const q = QUESTIONS[state.currentQuestion];
+            const answer = q.answers[answerIndex];
+
+            state.userTags.push(...answer.tags);
+
+            const buttons = document.querySelectorAll('.answer-btn');
+            buttons[answerIndex].classList.add('selected');
+            buttons.forEach(btn => btn.disabled = true);
+
+            setTimeout(() => {
+                state.currentQuestion++;
+                if (state.currentQuestion < QUESTIONS.length) {
+                    showQuestion(state.currentQuestion);
+                } else {
+                    document.getElementById('progress-fill').style.width = '100%';
+                    showResults();
+                }
+            }, 300);
+        }
+
+        function showResults() {
+            const scored = CONTENT.map(c => ({
+                ...c,
+                score: c.tags.reduce((sum, tag) => sum + state.userTags.filter(t => t === tag).length, 0) + Math.random() * 0.5
+            })).sort((a, b) => b.score - a.score).slice(0, 3);
+
+            const reasons = {
+                'chill': "Perfect for your low-key mood",
+                'intense': "Matches your 'ready for anything' energy",
+                'funny': "You wanted laughs, you got 'em",
+                'emotional': "Prepared tissues not included",
+                'mindless': "Zero brain cells required",
+                'thriller': "For your thriller-seeking soul",
+                'comedy': "Comedy goldmine incoming",
+                'drama': "Drama delivered as requested",
+                'documentary': "Real-world goodness for the curious mind",
+                'romance': "Love is in the algorithm",
+                'scifi': "Sci-fi vibes activated",
+                'crime': "Crime time is the right time"
+            };
+
+            const badges = ['Top Pick', 'Great Match', 'Also Try'];
+            const container = document.getElementById('recommendations-container');
+            container.innerHTML = '';
+
+            scored.forEach((rec, i) => {
+                const tagCounts = {};
+                state.userTags.forEach(t => tagCounts[t] = (tagCounts[t] || 0) + 1);
+                const matchingTag = Object.keys(tagCounts).sort((a,b) => tagCounts[b] - tagCounts[a]).find(t => rec.tags.includes(t) && reasons[t]);
+                const reason = reasons[matchingTag] || "The algorithm gods have spoken";
+                const emoji = rec.platform.includes('Netflix') ? '🔴' : '📺';
+
+                container.innerHTML += `
+                    <div class="recommendation-card">
+                        <div class="rec-header">
+                            <h3 class="rec-title">${rec.title}</h3>
+                            <span class="rec-badge">${badges[i]}</span>
+                        </div>
+                        <div class="rec-meta">
+                            <span>📺 ${rec.type}</span>
+                            <span>${emoji} ${rec.platform}</span>
+                        </div>
+                        <p class="rec-description">${rec.description}</p>
+                        <p class="match-reason">✨ ${reason}</p>
+                    </div>
+                `;
+            });
+
+            showScreen('results');
+        }
+    </script>
 </body>
 </html>
