@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fun quiz to help you decide what to watch tonight. Get personalized recommendations for Netflix Germany and ARD Mediathek.">
+    <meta name="theme-color" content="#1a1a2e">
+
+    <title>What Should I Watch? 🍿</title>
+
+    <!-- Favicon (popcorn emoji as data URI for simplicity) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍿</text></svg>">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- ==================== START SCREEN ==================== -->
+        <div id="start-screen" class="screen start-screen active">
+            <div class="logo">🍿</div>
+            <h1 class="title">What Should I Watch?</h1>
+            <p class="subtitle">
+                It's 9:47pm. You've been scrolling for 20 minutes.
+                Let's fix that with 6 quick questions.
+            </p>
+
+            <div class="features">
+                <span class="feature-tag">📺 Netflix DE</span>
+                <span class="feature-tag">📺 ARD Mediathek</span>
+                <span class="feature-tag">⚡ 30 seconds</span>
+                <span class="feature-tag">🎯 No signup</span>
+            </div>
+
+            <button id="start-btn" class="btn btn-primary">
+                Find My Watch →
+            </button>
+
+            <p class="fun-footer">
+                No algorithm overlords, just vibes.
+            </p>
+        </div>
+
+        <!-- ==================== QUIZ SCREEN ==================== -->
+        <div id="quiz-screen" class="screen quiz-screen">
+
+            <!-- Progress indicator -->
+            <div class="progress-container">
+                <div class="progress-text">
+                    <span>Question <span id="progress-current">1</span> of <span id="progress-total">6</span></span>
+                    <span>Almost there...</span>
+                </div>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Question area -->
+            <div class="question-container">
+                <div id="question-emoji" class="question-emoji">⚡</div>
+                <h2 id="question-text" class="question-text">Loading question...</h2>
+            </div>
+
+            <!-- Answer buttons (populated by JS) -->
+            <div id="answers-container" class="answers-container">
+                <!-- Answers will be inserted here -->
+            </div>
+        </div>
+
+        <!-- ==================== RESULTS SCREEN ==================== -->
+        <div id="results-screen" class="screen results-screen">
+
+            <div class="results-header">
+                <div class="results-emoji">🎬</div>
+                <h2 class="results-title">Your Watch List is Ready!</h2>
+                <p class="results-subtitle">Based on your answers, here's what you should watch tonight</p>
+            </div>
+
+            <!-- Recommendation cards (populated by JS) -->
+            <div id="recommendations-container" class="recommendations">
+                <!-- Recommendation cards will be inserted here -->
+            </div>
+
+            <div class="results-actions">
+                <button id="restart-btn" class="btn btn-secondary">
+                    🔄 Try Again
+                </button>
+            </div>
+
+            <p class="fun-footer">
+                Still can't decide? Close your eyes and tap randomly. We won't judge.
+                <br><br>
+                Made with ☕ and indecision
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Scripts (data first, then app logic) -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
