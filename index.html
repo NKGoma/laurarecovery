@@ -14,16 +14,9 @@
             line-height: 1.6;
         }
         .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-
-        /* Screens */
         .screen { display: none; }
         .screen.active { display: block; }
-
-        /* Start Screen */
-        #start-screen {
-            text-align: center;
-            padding-top: 15vh;
-        }
+        #start-screen { text-align: center; padding-top: 15vh; }
         .logo { font-size: 4rem; margin-bottom: 10px; }
         .title {
             font-size: 2rem;
@@ -34,133 +27,45 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .subtitle {
-            color: #b8b8b8;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 30px;
-        }
-        .tag {
-            background: #1f2937;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            color: #b8b8b8;
-        }
-
-        /* Buttons */
-        .btn {
-            padding: 16px 32px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .btn-primary {
-            background: linear-gradient(135deg, #e94560, #a855f7);
-            color: white;
-        }
-        .btn-secondary {
-            background: #1f2937;
-            color: white;
-            border: 2px solid #1f2937;
-        }
+        .subtitle { color: #b8b8b8; margin-bottom: 30px; font-size: 1.1rem; }
+        .features { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+        .tag { background: #1f2937; padding: 8px 16px; border-radius: 50px; font-size: 0.9rem; color: #b8b8b8; }
+        .btn { padding: 16px 32px; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .btn-primary { background: linear-gradient(135deg, #e94560, #a855f7); color: white; }
+        .btn-secondary { background: #1f2937; color: white; border: 2px solid #1f2937; }
         .btn:hover { opacity: 0.9; transform: scale(1.02); }
-
-        /* Quiz Screen */
         #quiz-screen { padding-top: 20px; }
-        .progress-bar {
-            height: 6px;
-            background: #1f2937;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #e94560, #a855f7);
-            transition: width 0.3s;
-        }
+        .progress-bar { height: 6px; background: #1f2937; border-radius: 10px; margin-bottom: 40px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #e94560, #a855f7); transition: width 0.3s; }
         .question-area { text-align: center; margin-bottom: 30px; }
         .emoji { font-size: 3rem; margin-bottom: 15px; }
         .question { font-size: 1.4rem; font-weight: 600; }
-
         .answers { display: flex; flex-direction: column; gap: 12px; }
         .answer-btn {
-            width: 100%;
-            padding: 18px 24px;
-            background: #1f2937;
-            border: 2px solid transparent;
-            border-radius: 12px;
-            color: #f8f8f8;
-            font-size: 1rem;
-            text-align: left;
-            cursor: pointer;
-            transition: all 0.15s;
+            width: 100%; padding: 18px 24px; background: #1f2937; border: 2px solid transparent;
+            border-radius: 12px; color: #f8f8f8; font-size: 1rem; text-align: left; cursor: pointer; transition: all 0.15s;
         }
-        .answer-btn:hover {
-            border-color: #e94560;
-            transform: translateX(5px);
-        }
-        .answer-btn.selected {
-            border-color: #e94560;
-            background: rgba(233, 69, 96, 0.2);
-        }
-
-        /* Results Screen */
+        .answer-btn:hover { border-color: #e94560; transform: translateX(5px); }
+        .answer-btn.selected { border-color: #e94560; background: rgba(233, 69, 96, 0.2); }
         #results-screen { padding-top: 20px; }
         .results-header { text-align: center; margin-bottom: 30px; }
         .results-emoji { font-size: 4rem; }
         .results-title { font-size: 1.5rem; margin: 10px 0; }
         .results-sub { color: #b8b8b8; }
-
-        .card {
-            background: #1f2937;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 16px;
-            border-left: 4px solid #e94560;
-        }
+        .card { background: #1f2937; border-radius: 16px; padding: 20px; margin-bottom: 16px; border-left: 4px solid #e94560; }
         .card:nth-child(2) { border-left-color: #a855f7; }
         .card:nth-child(3) { border-left-color: #ffd369; }
         .card-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
         .card-title { font-size: 1.2rem; font-weight: bold; }
-        .card-badge {
-            background: rgba(233, 69, 96, 0.2);
-            color: #e94560;
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-        }
+        .card-badge { background: rgba(233, 69, 96, 0.2); color: #e94560; padding: 4px 12px; border-radius: 8px; font-size: 0.85rem; }
         .card-meta { color: #6b7280; font-size: 0.9rem; margin-bottom: 12px; }
         .card-desc { color: #b8b8b8; line-height: 1.7; }
-        .card-reason {
-            margin-top: 12px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #ffd369;
-            font-style: italic;
-            font-size: 0.9rem;
-        }
-
-        .footer {
-            text-align: center;
-            color: #6b7280;
-            margin-top: 30px;
-            font-size: 0.9rem;
-        }
+        .card-reason { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); color: #ffd369; font-style: italic; font-size: 0.9rem; }
+        .footer { text-align: center; color: #6b7280; margin-top: 30px; font-size: 0.9rem; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- START -->
         <div id="start-screen" class="screen active">
             <div class="logo">🍿</div>
             <h1 class="title">What Should I Watch?</h1>
@@ -174,7 +79,6 @@
             <p class="footer">No algorithm overlords, just vibes.</p>
         </div>
 
-        <!-- QUIZ -->
         <div id="quiz-screen" class="screen">
             <div class="progress-bar"><div id="progress" class="progress-fill" style="width:0%"></div></div>
             <div class="question-area">
@@ -184,7 +88,6 @@
             <div id="answers" class="answers"></div>
         </div>
 
-        <!-- RESULTS -->
         <div id="results-screen" class="screen">
             <div class="results-header">
                 <div class="results-emoji">🎬</div>
@@ -200,72 +103,113 @@
     </div>
 
 <script>
-// Content database
+// Expanded content database with better variety
 var CONTENT = [
-    { title: "Dark", type: "Series", platform: "Netflix", desc: "Time travel, family secrets, and enough plot twists to make your brain do yoga.", tags: ["intense", "thriller", "long"] },
-    { title: "How to Sell Drugs Online (Fast)", type: "Series", platform: "Netflix", desc: "A nerdy German teen accidentally becomes a drug kingpin. Breaking Bad meets TikTok.", tags: ["funny", "comedy", "medium"] },
-    { title: "The Queen's Gambit", type: "Limited Series", platform: "Netflix", desc: "Chess has never been this sexy or dramatic. You'll want to look brooding in turtlenecks.", tags: ["emotional", "drama", "medium"] },
-    { title: "Squid Game", type: "Series", platform: "Netflix", desc: "Childhood games but make it deadly. Red Light, Green Light will never be the same.", tags: ["intense", "thriller", "wild"] },
-    { title: "Bridgerton", type: "Series", platform: "Netflix", desc: "Regency-era romance with modern vibes. Your grandma and best friend can both enjoy this.", tags: ["chill", "romance", "long"] },
-    { title: "Wednesday", type: "Series", platform: "Netflix", desc: "Addams Family's daughter goes to murder school with maximum deadpan energy. Iconic.", tags: ["funny", "comedy", "medium"] },
-    { title: "Emily in Paris", type: "Series", platform: "Netflix", desc: "An American in Paris with main character energy. Pretty visuals, zero stress.", tags: ["chill", "comedy", "mindless"] },
-    { title: "Our Planet", type: "Documentary", platform: "Netflix", desc: "David Attenborough whispering about nature. Either relaxing or cry-about-polar-bears vibes.", tags: ["chill", "documentary", "emotional"] },
-    { title: "Glass Onion", type: "Movie", platform: "Netflix", desc: "Murder mystery on a billionaire's island with Daniel Craig being delightfully Southern.", tags: ["funny", "thriller", "short"] },
-    { title: "Don't Look Up", type: "Movie", platform: "Netflix", desc: "Scientists warn about a comet, nobody listens. Satire that hits too close to home.", tags: ["funny", "comedy", "short"] },
-    { title: "All Quiet on the Western Front", type: "Movie", platform: "Netflix", desc: "A devastating anti-war film. Beautifully made, emotionally brutal.", tags: ["intense", "emotional", "drama"] },
-    { title: "Beef", type: "Series", platform: "Netflix", desc: "Road rage spirals into absolute mayhem. Dark comedy gold that keeps escalating.", tags: ["intense", "funny", "wild"] },
-    { title: "Tatort", type: "Series", platform: "ARD", desc: "Germany's favorite Sunday crime ritual. Pick a city, enjoy murder with your Abendbrot.", tags: ["chill", "crime", "short"] },
-    { title: "Babylon Berlin", type: "Series", platform: "ARD", desc: "1920s Berlin with jazz, crime, and stunning aesthetics. History class with sequins.", tags: ["intense", "crime", "long"] },
-    { title: "Mord mit Aussicht", type: "Series", platform: "ARD", desc: "Crime comedy in a tiny German village. Cozy murders, if that's a genre.", tags: ["chill", "funny", "comedy"] },
-    { title: "Terra X", type: "Documentary", platform: "ARD", desc: "German documentaries about history and nature. YouTube rabbit holes but educational.", tags: ["chill", "documentary", "short"] },
-    { title: "Die Carolin Kebekus Show", type: "Show", platform: "ARD", desc: "Germany's sharpest comedy queen roasting everything. Laugh at the state of the world.", tags: ["funny", "comedy", "short"] }
+    // NETFLIX - Intense/Thriller
+    { title: "Dark", type: "Series", platform: "Netflix", desc: "Time travel, family secrets, and enough plot twists to make your brain do yoga.", tags: ["intense", "thriller", "long", "wild"] },
+    { title: "Squid Game", type: "Series", platform: "Netflix", desc: "Childhood games but make it deadly. Red Light, Green Light will never be the same.", tags: ["intense", "thriller", "wild", "medium"] },
+    { title: "Black Mirror", type: "Series", platform: "Netflix", desc: "Technology-themed nightmares that'll make you side-eye your phone. Each episode is standalone chaos.", tags: ["intense", "thriller", "wild", "short"] },
+    { title: "You", type: "Series", platform: "Netflix", desc: "A charming bookstore manager who's also a total psycho. You'll hate yourself for rooting for him.", tags: ["intense", "thriller", "drama", "long"] },
+    { title: "Ozark", type: "Series", platform: "Netflix", desc: "Family moves to the Ozarks to launder money. What could possibly go wrong? Everything.", tags: ["intense", "crime", "drama", "long"] },
+
+    // NETFLIX - Comedy/Light
+    { title: "How to Sell Drugs Online (Fast)", type: "Series", platform: "Netflix", desc: "A nerdy German teen accidentally becomes a drug kingpin. Breaking Bad meets TikTok.", tags: ["funny", "comedy", "medium", "wild"] },
+    { title: "Wednesday", type: "Series", platform: "Netflix", desc: "Addams Family's daughter goes to murder school with maximum deadpan energy. Iconic.", tags: ["funny", "comedy", "medium", "thriller"] },
+    { title: "Emily in Paris", type: "Series", platform: "Netflix", desc: "An American in Paris with main character energy. Pretty visuals, zero stress.", tags: ["chill", "comedy", "mindless", "romance"] },
+    { title: "Never Have I Ever", type: "Series", platform: "Netflix", desc: "Indian-American teen navigating high school, grief, and bad decisions. Heartwarming chaos.", tags: ["funny", "comedy", "drama", "medium"] },
+    { title: "Sex Education", type: "Series", platform: "Netflix", desc: "Awkward teen starts a sex therapy clinic at school. Surprisingly wholesome and hilarious.", tags: ["funny", "comedy", "drama", "medium"] },
+    { title: "The Good Place", type: "Series", platform: "Netflix", desc: "Woman dies and goes to the Good Place by mistake. Philosophy has never been this funny.", tags: ["funny", "comedy", "chill", "medium"] },
+
+    // NETFLIX - Drama/Emotional
+    { title: "The Queen's Gambit", type: "Limited Series", platform: "Netflix", desc: "Chess has never been this sexy or dramatic. You'll want to look brooding in turtlenecks.", tags: ["emotional", "drama", "medium", "intense"] },
+    { title: "All Quiet on the Western Front", type: "Movie", platform: "Netflix", desc: "A devastating anti-war film. Beautifully made, emotionally brutal.", tags: ["intense", "emotional", "drama", "short"] },
+    { title: "Bridgerton", type: "Series", platform: "Netflix", desc: "Regency-era romance with modern vibes. Your grandma and best friend can both enjoy this.", tags: ["chill", "romance", "drama", "long"] },
+    { title: "Heartstopper", type: "Series", platform: "Netflix", desc: "Sweet British teen romance that'll make your heart explode into confetti. Pure serotonin.", tags: ["chill", "romance", "emotional", "short"] },
+    { title: "The Crown", type: "Series", platform: "Netflix", desc: "The Royal Family drama. Fancy hats, family dysfunction, and historical tea-spilling.", tags: ["drama", "emotional", "long", "chill"] },
+
+    // NETFLIX - Movies
+    { title: "Glass Onion", type: "Movie", platform: "Netflix", desc: "Murder mystery on a billionaire's island with Daniel Craig being delightfully Southern.", tags: ["funny", "thriller", "short", "wild"] },
+    { title: "Don't Look Up", type: "Movie", platform: "Netflix", desc: "Scientists warn about a comet, nobody listens. Satire that hits too close to home.", tags: ["funny", "comedy", "short", "drama"] },
+    { title: "The Adam Project", type: "Movie", platform: "Netflix", desc: "Ryan Reynolds time travels to team up with his younger self. Fun family sci-fi vibes.", tags: ["chill", "comedy", "short", "emotional"] },
+    { title: "Red Notice", type: "Movie", platform: "Netflix", desc: "The Rock, Ryan Reynolds, and Gal Gadot doing heist stuff. Turn your brain off and enjoy.", tags: ["mindless", "comedy", "short", "wild"] },
+    { title: "Enola Holmes", type: "Movie", platform: "Netflix", desc: "Sherlock's little sister solving mysteries and breaking the fourth wall. Delightful.", tags: ["funny", "chill", "short", "drama"] },
+
+    // NETFLIX - Documentary
+    { title: "Our Planet", type: "Documentary", platform: "Netflix", desc: "David Attenborough whispering about nature. Either relaxing or cry-about-polar-bears vibes.", tags: ["chill", "documentary", "emotional", "medium"] },
+    { title: "The Social Dilemma", type: "Documentary", platform: "Netflix", desc: "Tech insiders explain why your phone is ruining your life. Terrifying but important.", tags: ["documentary", "intense", "short", "drama"] },
+    { title: "Chef's Table", type: "Documentary", platform: "Netflix", desc: "Beautiful food porn that'll make you want to book a flight. Each episode is a chef's story.", tags: ["chill", "documentary", "emotional", "short"] },
+
+    // NETFLIX - Thriller/Crime
+    { title: "Lupin", type: "Series", platform: "Netflix", desc: "A gentleman thief in modern Paris being extremely cool and French. Style goals.", tags: ["thriller", "crime", "medium", "chill"] },
+    { title: "Money Heist", type: "Series", platform: "Netflix", desc: "Spanish robbers in red jumpsuits pull off insane heists. Bella ciao stuck in your head forever.", tags: ["intense", "thriller", "crime", "long"] },
+    { title: "Beef", type: "Series", platform: "Netflix", desc: "Road rage spirals into absolute mayhem. Dark comedy gold that keeps escalating beautifully.", tags: ["intense", "funny", "wild", "short"] },
+
+    // ARD MEDIATHEK - Crime
+    { title: "Tatort", type: "Series", platform: "ARD", desc: "Germany's favorite Sunday crime ritual. Pick a city, enjoy murder with your Abendbrot.", tags: ["chill", "crime", "short", "drama"] },
+    { title: "Babylon Berlin", type: "Series", platform: "ARD", desc: "1920s Berlin with jazz, crime, and stunning aesthetics. History class with sequins.", tags: ["intense", "crime", "long", "drama"] },
+    { title: "Polizeiruf 110", type: "Series", platform: "ARD", desc: "The other classic German crime show. Different cities, same cozy murder vibes.", tags: ["chill", "crime", "short", "drama"] },
+    { title: "Die Toten vom Bodensee", type: "Series", platform: "ARD", desc: "Murder mysteries at Lake Constance. Gorgeous scenery, plentiful corpses.", tags: ["chill", "crime", "thriller", "medium"] },
+
+    // ARD MEDIATHEK - Comedy
+    { title: "Mord mit Aussicht", type: "Series", platform: "ARD", desc: "Crime comedy in a tiny German village. Cozy murders, if that's a genre.", tags: ["chill", "funny", "comedy", "medium"] },
+    { title: "Die Carolin Kebekus Show", type: "Show", platform: "ARD", desc: "Germany's sharpest comedy queen roasting everything. Laugh at the state of the world.", tags: ["funny", "comedy", "short", "mindless"] },
+    { title: "Wer weiß denn sowas?", type: "Show", platform: "ARD", desc: "Trivia show with delightfully useless knowledge. Feel smart or feel dumb.", tags: ["chill", "funny", "short", "mindless"] },
+    { title: "Pastewka", type: "Series", platform: "ARD", desc: "Bastian Pastewka's life goes hilariously wrong. German cringe comedy at its finest.", tags: ["funny", "comedy", "medium", "chill"] },
+
+    // ARD MEDIATHEK - Drama
+    { title: "Charité", type: "Series", platform: "ARD", desc: "Medical drama through German history at Berlin's famous hospital. Your teachers would be proud.", tags: ["emotional", "drama", "documentary", "medium"] },
+    { title: "Deutschland 83/86/89", type: "Series", platform: "ARD", desc: "East German spy infiltrates the West. Cold War vibes with a killer 80s soundtrack.", tags: ["intense", "thriller", "drama", "medium"] },
+    { title: "Eldorado KaDeWe", type: "Series", platform: "ARD", desc: "1920s Berlin department store drama. Fashion, forbidden love, retail therapy as art.", tags: ["emotional", "drama", "romance", "medium"] },
+    { title: "Die Eifelpraxis", type: "Series", platform: "ARD", desc: "Country doctor in the beautiful Eifel region. Heartwarming medical stories.", tags: ["chill", "emotional", "drama", "short"] },
+
+    // ARD MEDIATHEK - Documentary
+    { title: "Terra X", type: "Documentary", platform: "ARD", desc: "German documentaries about history and nature. YouTube rabbit holes but actually educational.", tags: ["chill", "documentary", "short", "mindless"] },
+    { title: "Weltspiegel", type: "Documentary", platform: "ARD", desc: "International news magazine. See what's happening beyond German borders.", tags: ["documentary", "drama", "short", "intense"] }
 ];
 
-// Questions
+// Questions with more varied tag combinations
 var QUESTIONS = [
     { emoji: "⚡", q: "What's your energy level right now?", a: [
-        { text: "Horizontal and proud of it", tags: ["chill", "mindless"] },
-        { text: "Functioning... barely", tags: ["chill", "medium"] },
-        { text: "Could focus on something good", tags: ["medium", "drama"] },
-        { text: "Wired and ready!", tags: ["intense", "wild"] }
+        { text: "Horizontal and proud of it", tags: ["chill", "mindless", "short"] },
+        { text: "Functioning... barely", tags: ["chill", "medium", "comedy"] },
+        { text: "Could focus on something good", tags: ["medium", "drama", "emotional"] },
+        { text: "Wired and ready!", tags: ["intense", "wild", "thriller"] }
     ]},
     { emoji: "🧠", q: "How's your attention span tonight?", a: [
-        { text: "A goldfish could outfocus me", tags: ["short", "mindless"] },
-        { text: "About 2 hours max", tags: ["short", "medium"] },
-        { text: "Ready for a proper series", tags: ["medium", "long"] },
-        { text: "I want to get INVESTED", tags: ["long", "intense"] }
+        { text: "A goldfish could outfocus me", tags: ["short", "mindless", "comedy"] },
+        { text: "About 2 hours max", tags: ["short", "medium", "thriller"] },
+        { text: "Ready for a proper series", tags: ["medium", "long", "drama"] },
+        { text: "I want to get INVESTED", tags: ["long", "intense", "emotional"] }
     ]},
     { emoji: "💭", q: "Do you want to feel feelings?", a: [
-        { text: "Make me ugly cry", tags: ["emotional", "drama"] },
+        { text: "Make me ugly cry", tags: ["emotional", "drama", "intense"] },
         { text: "Warm fuzzies only", tags: ["emotional", "romance", "chill"] },
-        { text: "Light feelings please", tags: ["funny", "comedy"] },
-        { text: "Feelings are cancelled", tags: ["mindless", "comedy"] }
+        { text: "Light feelings please", tags: ["funny", "comedy", "chill"] },
+        { text: "Feelings are cancelled", tags: ["mindless", "comedy", "wild"] }
     ]},
     { emoji: "🌀", q: "How much chaos can you handle?", a: [
         { text: "Plot twist me into oblivion", tags: ["wild", "thriller", "intense"] },
-        { text: "Some spice is nice", tags: ["thriller", "drama"] },
-        { text: "Mildly interesting things", tags: ["drama", "comedy"] },
-        { text: "Predictable comfort please", tags: ["chill", "romance"] }
+        { text: "Some spice is nice", tags: ["thriller", "drama", "crime"] },
+        { text: "Mildly interesting things", tags: ["drama", "comedy", "medium"] },
+        { text: "Predictable comfort please", tags: ["chill", "romance", "funny"] }
     ]},
     { emoji: "🌍", q: "Real world or escape?", a: [
-        { text: "Show me the real stuff", tags: ["documentary", "drama"] },
-        { text: "Reality but dramatic", tags: ["drama", "crime"] },
-        { text: "A little bit of both", tags: ["drama", "comedy"] },
-        { text: "Full fantasy escape", tags: ["romance", "wild"] }
+        { text: "Show me the real stuff", tags: ["documentary", "drama", "intense"] },
+        { text: "Reality but dramatic", tags: ["drama", "crime", "emotional"] },
+        { text: "A little bit of both", tags: ["drama", "comedy", "medium"] },
+        { text: "Full fantasy escape", tags: ["romance", "wild", "comedy"] }
     ]},
     { emoji: "✨", q: "Pick a vibe:", a: [
-        { text: "Cozy blanket energy", tags: ["chill", "romance"] },
+        { text: "Cozy blanket energy", tags: ["chill", "romance", "emotional"] },
         { text: "Edge of my seat", tags: ["thriller", "intense", "wild"] },
-        { text: "Laughing out loud", tags: ["comedy", "funny"] },
-        { text: "Learn something new", tags: ["documentary", "drama"] }
+        { text: "Laughing out loud", tags: ["comedy", "funny", "mindless"] },
+        { text: "Learn something new", tags: ["documentary", "drama", "chill"] }
     ]}
 ];
 
-// State
 var currentQ = 0;
 var userTags = [];
 
-// Show a screen
 function showScreen(id) {
     document.getElementById('start-screen').classList.remove('active');
     document.getElementById('quiz-screen').classList.remove('active');
@@ -273,22 +217,18 @@ function showScreen(id) {
     document.getElementById(id).classList.add('active');
 }
 
-// Start quiz
 function startQuiz() {
-    alert('Button clicked! Starting quiz...');
     currentQ = 0;
     userTags = [];
     showScreen('quiz-screen');
     showQuestion();
 }
 
-// Show current question
 function showQuestion() {
     var q = QUESTIONS[currentQ];
     document.getElementById('progress').style.width = (currentQ / QUESTIONS.length * 100) + '%';
     document.getElementById('emoji').textContent = q.emoji;
     document.getElementById('question').textContent = q.q;
-
     var html = '';
     for (var i = 0; i < q.a.length; i++) {
         html += '<button class="answer-btn" onclick="selectAnswer(' + i + ')">' + q.a[i].text + '</button>';
@@ -296,33 +236,36 @@ function showQuestion() {
     document.getElementById('answers').innerHTML = html;
 }
 
-// Handle answer selection
 function selectAnswer(idx) {
     var q = QUESTIONS[currentQ];
     var tags = q.a[idx].tags;
     for (var i = 0; i < tags.length; i++) {
         userTags.push(tags[i]);
     }
-
-    // Visual feedback
     var btns = document.querySelectorAll('.answer-btn');
     btns[idx].classList.add('selected');
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].disabled = true;
-    }
-
+    for (var i = 0; i < btns.length; i++) { btns[i].disabled = true; }
     setTimeout(function() {
         currentQ++;
-        if (currentQ < QUESTIONS.length) {
-            showQuestion();
-        } else {
+        if (currentQ < QUESTIONS.length) { showQuestion(); }
+        else {
             document.getElementById('progress').style.width = '100%';
             showResults();
         }
     }, 300);
 }
 
-// Calculate scores and show results
+// Shuffle array helper
+function shuffle(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    return arr;
+}
+
 function showResults() {
     // Score each content item
     var scored = [];
@@ -334,15 +277,45 @@ function showResults() {
                 if (c.tags[j] === userTags[k]) score++;
             }
         }
-        score += Math.random() * 0.5; // Small random factor
+        // Add significant randomness (0-3 points) for variety
+        score += Math.random() * 3;
         scored.push({ content: c, score: score });
     }
 
     // Sort by score
     scored.sort(function(a, b) { return b.score - a.score; });
 
-    // Get top 3
-    var top3 = scored.slice(0, 3);
+    // Get top candidates and ensure variety
+    var topCandidates = scored.slice(0, 10); // Get top 10
+    shuffle(topCandidates); // Shuffle them for variety
+
+    // Pick 3 results trying to get different types/platforms
+    var results = [];
+    var usedTitles = [];
+    var usedTypes = [];
+
+    // First pass: try to get variety
+    for (var i = 0; i < topCandidates.length && results.length < 3; i++) {
+        var c = topCandidates[i].content;
+        var isDuplicate = usedTitles.indexOf(c.title) >= 0;
+        var sameType = usedTypes.indexOf(c.type) >= 0 && results.length > 0;
+
+        if (!isDuplicate && (!sameType || results.length >= 2)) {
+            results.push(topCandidates[i]);
+            usedTitles.push(c.title);
+            usedTypes.push(c.type);
+        }
+    }
+
+    // Fill remaining slots if needed
+    for (var i = 0; i < topCandidates.length && results.length < 3; i++) {
+        var isDuplicate = usedTitles.indexOf(topCandidates[i].content.title) >= 0;
+        if (!isDuplicate) {
+            results.push(topCandidates[i]);
+            usedTitles.push(topCandidates[i].content.title);
+        }
+    }
+
     var badges = ['Top Pick', 'Great Match', 'Also Try'];
     var reasons = {
         'chill': "Perfect for your low-key mood",
@@ -353,16 +326,22 @@ function showResults() {
         'comedy': "Comedy goldmine incoming",
         'drama': "Drama delivered",
         'documentary': "For the curious mind",
-        'romance': "Love is in the algorithm"
+        'romance': "Love is in the algorithm",
+        'wild': "Chaos level: just right",
+        'crime': "Crime time is the right time",
+        'mindless': "Zero brain cells required",
+        'short': "Quick and satisfying",
+        'long': "Perfect for a deep dive"
     };
 
     var html = '';
-    for (var i = 0; i < top3.length; i++) {
-        var c = top3[i].content;
+    for (var i = 0; i < results.length; i++) {
+        var c = results[i].content;
         var reason = "The algorithm gods have spoken";
-        for (var j = 0; j < c.tags.length; j++) {
-            if (reasons[c.tags[j]]) {
-                reason = reasons[c.tags[j]];
+        // Find best matching reason based on user's tags
+        for (var k = 0; k < userTags.length; k++) {
+            if (reasons[userTags[k]] && c.tags.indexOf(userTags[k]) >= 0) {
+                reason = reasons[userTags[k]];
                 break;
             }
         }
